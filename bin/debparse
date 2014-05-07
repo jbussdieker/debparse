@@ -20,6 +20,9 @@ puts
 
 while ARGV.length > 0
   component = ARGV.shift
+  puts "#{dist} #{component} source"
+  packages = archive.packages(component, "source")
+  puts " * #{packages.length} package(s)"
 
   (["amd64", "i386"] & release.architectures).each do |arch|
     puts "#{dist} #{component} #{arch}"
