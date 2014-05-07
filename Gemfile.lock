@@ -1,0 +1,16 @@
+PATH
+  remote: .
+  specs:
+    debparse (0.0.1)
+      archive-ar
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    archive-ar (0.0.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  debparse!

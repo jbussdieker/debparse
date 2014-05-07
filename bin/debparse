@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+require 'debparse'
+
+dist = ARGV.shift
+mirror = "http://us.archive.ubuntu.com/ubuntu/"
+connection = Debparse::Connection.new(mirror)
+archive = Debparse::Archive.new(connection, dist)
+release = archive.release
+
+puts "Origin:        #{release.origin}"
+puts "Label:         #{release.label}"
+puts "Suite:         #{release.suite}"
+puts "Version:       #{release.version}"
+puts "Codename:      #{release.codename}"
+puts "Date:          #{release.date}"
+puts "Architectures: #{release.architectures}"
+puts "Components:    #{release.components}"
+puts "Description:   #{release.description}"
+puts
+
+while ARGV.length > 0
+  component = ARGV.shift
+
+  (["amd64", "i386"] & release.architectures).each do |arch|
+    puts "#{dist} #{component} #{arch}"
+    packages = archive.packages(component, "binary-#{arch}")
+    puts " * #{packages.length} package(s)"
+  end
+end
